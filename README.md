@@ -1,4 +1,4 @@
-# Advent of Code 2016
+# Advent of Code 2015
 
 This repository contains solutions for Advent of Code 2016 by Ken Van Hoeylandt.
 
