@@ -48,11 +48,16 @@ public class SeatingService
 		return seating_property.get();
 	}
 
+	/**
+	 * Get the total happiness for a specific seating
+	 * @param seating the seating list
+	 * @return the total happiness value
+	 */
 	public int getHappiness(List<Person> seating)
 	{
 		IntegerProperty happiness = new IntegerProperty(0);
 
-		iterateSeatingPerson(seating, (current, left, right) ->
+		iterateSeating(seating, (current, left, right) ->
 		{
 			happiness.increase(current.getHappiness(left));
 			happiness.increase(current.getHappiness(right));
@@ -61,7 +66,12 @@ public class SeatingService
 		return happiness.get();
 	}
 
-	private void iterateSeatingPerson(List<Person> seating, SeatingPersonIterator iterator)
+	/**
+	 * Iterate through a specific seating arrangement
+	 * @param seating the arrangement of people
+	 * @param iterator the iteration interface
+	 */
+	private void iterateSeating(List<Person> seating, SeatingPersonIterator iterator)
 	{
 		for (int i = 0; i < seating.size(); ++i)
 		{
@@ -77,6 +87,11 @@ public class SeatingService
 		}
 	}
 
+	/**
+	 * Iterate through all possible seatings
+	 * @param people the Collection of People
+	 * @param seatingIterator the iteration interface
+	 */
 	private void iteratePossibleSeatings(Collection<Person> people, SeatingIterator seatingIterator)
 	{
 		PermutationIterator<Person> iterator = new PermutationIterator<>(people);
@@ -87,6 +102,12 @@ public class SeatingService
 		}
 	}
 
+	/**
+	 * Retrieve the index of the person to the left of the given seating index.
+	 * @param index the index in the list
+	 * @param length the list length
+	 * @return the index of the person to the left
+	 */
 	public int getIndexLeftOf(int index, int length)
 	{
 		if (index == 0)
@@ -99,6 +120,12 @@ public class SeatingService
 		}
 	}
 
+	/**
+	 * Retrieve the index of the person to the right of the given seating index.
+	 * @param index the index in the list
+	 * @param length the list length
+	 * @return the index of the person to the right
+	 */
 	public int getIndexRightOf(int index, int length)
 	{
 		if (index == (length - 1))
