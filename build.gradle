@@ -24,7 +24,7 @@ jar {
 
 dependencies {
     compile(
-        [group: 'commons-collections', name: 'commons-collections', version: '3.2'],
+        [group: 'org.apache.commons', name: 'commons-collections4', version: '4.1'],
         [group: 'org.apache.commons', name: 'commons-lang3', version: '3.3.+'],
         [group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.+'],
         [group: 'com.squareup.okhttp', name: 'okhttp', version: '2.6.0'],

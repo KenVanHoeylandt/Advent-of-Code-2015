@@ -6,6 +6,7 @@ import net.kenvanhoeylandt.solutions.day1.Day1Solution;
 import net.kenvanhoeylandt.solutions.day10.Day10Solution;
 import net.kenvanhoeylandt.solutions.day11.Day11Solution;
 import net.kenvanhoeylandt.solutions.day12.Day12Solution;
+import net.kenvanhoeylandt.solutions.day13.Day13Solution;
 import net.kenvanhoeylandt.solutions.day2.Day2Solution;
 import net.kenvanhoeylandt.solutions.day3.Day3Solution;
 import net.kenvanhoeylandt.solutions.day4.Day4Solution;
@@ -30,7 +31,8 @@ public class Application
 		Day9Solution.class,
 		Day10Solution.class,
 		Day11Solution.class,
-		Day12Solution.class
+		Day12Solution.class,
+		Day13Solution.class
 	};
 
 	public static void main(String[] args)
