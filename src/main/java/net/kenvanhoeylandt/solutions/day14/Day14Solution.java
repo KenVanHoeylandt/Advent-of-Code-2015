@@ -22,7 +22,7 @@ public class Day14Solution extends Solution
 		String[] inputs = input.split("\n");
 
 		List<Reindeer> reindeer_list = Arrays.stream(inputs)
-			.map(ReindeerParser::map)
+			.map(ReindeerFactory::create)
 			.collect(Collectors.toList());
 
 		int time_passed = 2503;

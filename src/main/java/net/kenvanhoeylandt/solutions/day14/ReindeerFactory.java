@@ -2,9 +2,9 @@ package net.kenvanhoeylandt.solutions.day14;
 
 import net.kenvanhoeylandt.lang.Strings;
 
-public class ReindeerParser
+public class ReindeerFactory
 {
-	public static Reindeer map(String input)
+	public static Reindeer create(String input)
 	{
 		String stripped = Strings.removeAll(input,
 			new String[]
