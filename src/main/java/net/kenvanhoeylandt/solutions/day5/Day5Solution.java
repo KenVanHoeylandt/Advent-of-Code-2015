@@ -2,6 +2,9 @@ package net.kenvanhoeylandt.solutions.day5;
 
 import net.kenvanhoeylandt.solutions.Solution;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class Day5Solution extends Solution
 {
 	public Day5Solution()
@@ -12,34 +15,29 @@ public class Day5Solution extends Solution
 	@Override
 	protected Object solve(String input) throws Exception
 	{
-		String[] lines = input.split("\n");
+		List<String> lines = Arrays.asList(input.split("\n"));
 
-		int part_one = solve(lines, line ->
-			line.matches(".*[aeiou].*[aeiou].*[aeiou].*")
-			&& line.matches(".*([a-z])\\1.*")
-			&& !line.matches(".*(ab|cd|pq|xy).*")
-		);
+		long part_one = lines.parallelStream()
+			.filter(Day5Solution::filterPartOne)
+			.count();
 
-		int part_two = solve(lines, line ->
-			line.matches(".*([a-z][a-z]).*\\1.*")
-			&& line.matches(".*([a-z])[a-z]\\1.*")
-		);
+		long part_two = lines.parallelStream()
+			.filter(Day5Solution::filterPartTwo)
+			.count();
 
 		return String.format("part one: %d, part two: %d", part_one, part_two);
 	}
 
-	private int solve(String[] lines, Matcher matcher)
+	private static boolean filterPartOne(String line)
 	{
-		int count = 0;
+		return line.matches(".*[aeiou].*[aeiou].*[aeiou].*")
+			&& line.matches(".*([a-z])\\1.*")
+			&& !line.matches(".*(ab|cd|pq|xy).*");
+	}
 
-		for (String line : lines)
-		{
-			if (matcher.isMatch(line))
-			{
-				count++;
-			}
-		}
-
-		return count;
+	private static boolean filterPartTwo(String line)
+	{
+		return line.matches(".*([a-z][a-z]).*\\1.*")
+			&& line.matches(".*([a-z])[a-z]\\1.*");
 	}
 }
