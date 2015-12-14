@@ -1,19 +1,14 @@
 package net.kenvanhoeylandt.solutions.day2.data;
 
-import net.kenvanhoeylandt.exceptions.InputParsingException;
-
-import java.util.ArrayList;
-import java.util.List;
-
 public class BoxFactory
 {
-	public static Box create(String data) throws InputParsingException
+	public static Box create(String data)
 	{
 		String[] entries = data.split("x");
 
 		if (entries.length != 3)
 		{
-			throw new InputParsingException("entry not in format [length]x[width]x[height]");
+			throw new RuntimeException("entry not in format [length]x[width]x[height]");
 		}
 
 		try
@@ -26,20 +21,7 @@ public class BoxFactory
 		}
 		catch (Exception e)
 		{
-			throw new InputParsingException("failed to parse numbers in entry");
+			throw new RuntimeException("failed to parse numbers in entry");
 		}
-	}
-
-	public static List<Box> create(String[] dataArray) throws InputParsingException
-	{
-		ArrayList<Box> box_list = new ArrayList<>(dataArray.length);
-
-		for (String data : dataArray)
-		{
-			Box box = create(data);
-			box_list.add(box);
-		}
-
-		return box_list;
 	}
 }
