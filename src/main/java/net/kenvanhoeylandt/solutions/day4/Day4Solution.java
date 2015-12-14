@@ -41,7 +41,7 @@ public class Day4Solution extends Solution
 		{
 			count++;
 
-			secret = input + Integer.valueOf(count);
+			secret = input + count;
 
 			byte[] result_bytes = digest.digest(secret.getBytes());
 
