@@ -1,4 +1,4 @@
-package net.kenvanhoeylandt.solutions.day3.data;
+package net.kenvanhoeylandt.solutions.day3;
 
 import java.util.HashMap;
 import java.util.Map;

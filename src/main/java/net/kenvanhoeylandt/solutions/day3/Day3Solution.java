@@ -2,10 +2,11 @@ package net.kenvanhoeylandt.solutions.day3;
 
 import net.kenvanhoeylandt.exceptions.InputParsingException;
 import net.kenvanhoeylandt.solutions.Solution;
-import net.kenvanhoeylandt.solutions.day3.data.Direction;
-import net.kenvanhoeylandt.solutions.day3.data.DirectionFactory;
-import net.kenvanhoeylandt.solutions.day3.data.Grid;
-import net.kenvanhoeylandt.solutions.day3.logic.GridDriver;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class Day3Solution extends Solution
 {
@@ -17,15 +18,19 @@ public class Day3Solution extends Solution
 	@Override
 	protected Object solve(String input) throws Exception
 	{
-		int part_one_result = solvePartOne(input);
-		int part_two_result = solvePartTwo(input);
+		List<Direction> directions = input.chars()
+			.mapToObj(DirectionFactory::create)
+			.collect(Collectors.toList());
+
+		int part_one_result = solvePartOne(directions);
+		int part_two_result = solvePartTwo(directions);
 
 		return String.format("part one: %d, part two: %d", part_one_result, part_two_result);
 	}
 
-	private int solvePartOne(String input) throws InputParsingException
+	private int solvePartOne(List<Direction> directions) throws InputParsingException
 	{
-		Direction[] directions = DirectionFactory.create(input);
+
 		Grid grid = new Grid();
 		GridDriver driver = new GridDriver(grid, directions);
 
@@ -34,22 +39,24 @@ public class Day3Solution extends Solution
 		return grid.getVisitCount();
 	}
 
-	private int solvePartTwo(String input) throws InputParsingException
+	private int solvePartTwo(List<Direction> directions) throws InputParsingException
 	{
-		Direction[] directions = DirectionFactory.create(input);
+		List<Direction> santa_directions = new ArrayList<>(directions.size()/ 2);
+		List<Direction> robosanta_directions = new ArrayList<>(directions.size()/ 2);
 
-		Direction[] santa_directions = new Direction[directions.length / 2];
-		Direction[] robosanta_directions = new Direction[directions.length / 2];
-
-		for (int i = 0; i < directions.length; i += 2)
+		IntStream.range(0, directions.size()).forEach(index ->
 		{
-			santa_directions[i/2] = directions[i];
-		}
+			Direction direction = directions.get(index);
 
-		for (int i = 1; i < directions.length; i += 2)
-		{
-			robosanta_directions[i/2] = directions[i];
-		}
+			if (index % 2 == 0)
+			{
+				santa_directions.add(direction);
+			}
+			else
+			{
+				robosanta_directions.add(direction);
+			}
+		});
 
 		Grid grid = new Grid();
 

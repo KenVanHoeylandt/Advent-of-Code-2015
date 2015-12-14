@@ -1,19 +1,18 @@
-package net.kenvanhoeylandt.solutions.day3.logic;
+package net.kenvanhoeylandt.solutions.day3;
 
-import net.kenvanhoeylandt.solutions.day3.data.Direction;
-import net.kenvanhoeylandt.solutions.day3.data.Grid;
+import java.util.List;
 
 public class GridDriver
 {
 	private final Grid mGrid;
 
-	private final Direction[] mDirections;
+	private final List<Direction> mDirections;
 
 	private int mPositionX = 0;
 
 	private int mPositionY = 0;
 
-	public GridDriver(Grid grid, Direction[] directions)
+	public GridDriver(Grid grid, List<Direction> directions)
 	{
 		mGrid = grid;
 		mDirections = directions;
@@ -24,12 +23,11 @@ public class GridDriver
 		// Save initial position
 		saveCurrentPosition();
 
-		for (Direction direction : mDirections)
+		mDirections.forEach(direction ->
 		{
 			updatePosition(direction);
-
 			saveCurrentPosition();
-		}
+		});
 	}
 
 	private void updatePosition(Direction direction)
