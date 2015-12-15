@@ -3,7 +3,7 @@ package net.kenvanhoeylandt.solutions.day6.data;
 import net.kenvanhoeylandt.exceptions.InputParsingException;
 import net.kenvanhoeylandt.validators.ArrayValidator;
 
-public class CommandParser
+public class CommandFactory
 {
 	final static String sCommandTurnOffPrefix = "turn off ";
 	final static String sCommandTurnOnPrefix = "turn on ";
