@@ -37,34 +37,30 @@ public class Day15Solution extends Solution
 		LongProperty best_score_part_one = new LongProperty(0L);
 		LongProperty best_score_part_two = new LongProperty(0L);
 
-		// Premutate through all possible ingredient combinations
-		new PermutationIterator<>(ingredients).forEachRemaining(list ->
+		// Permutate through all possible recipes
+		permutateMixtures(100, (List<Integer> mixture) ->
 		{
-			// Permutate through all possible recipes
-			permutateMixtures(100, (List<Integer> mixture) ->
+			long score = IngredientMath.getScore(ingredients, mixture);
+
+			// Part one score
+			if (score > best_score_part_one.get())
 			{
-				long score = IngredientMath.getScore(list, mixture);
-
-				// Part one score
-				if (score > best_score_part_one.get())
+				synchronized (best_score_part_one)
 				{
-					synchronized (best_score_part_one)
-					{
-						best_score_part_one.set(score);
-						best_list_part_one.set(list);
-					}
+					best_score_part_one.set(score);
+					best_list_part_one.set(ingredients);
 				}
+			}
 
-				// Part two score
-				if (score > best_score_part_two.get() && IngredientMath.getCalories(list, mixture) == 500)
+			// Part two score
+			if (score > best_score_part_two.get() && IngredientMath.getCalories(ingredients, mixture) == 500)
+			{
+				synchronized (best_score_part_two)
 				{
-					synchronized (best_score_part_two)
-					{
-						best_score_part_two.set(score);
-						best_list_part_two.set(list);
-					}
+					best_score_part_two.set(score);
+					best_list_part_two.set(ingredients);
 				}
-			});
+			}
 		});
 
 		return String.format("part one: %d, part two: %d", best_score_part_one.get(), best_score_part_two.get());
