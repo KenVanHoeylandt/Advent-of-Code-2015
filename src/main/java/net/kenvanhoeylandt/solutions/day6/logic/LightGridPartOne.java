@@ -3,6 +3,7 @@ package net.kenvanhoeylandt.solutions.day6.logic;
 import net.kenvanhoeylandt.solutions.day6.data.Area;
 
 import java.util.Arrays;
+import java.util.stream.IntStream;
 
 public class LightGridPartOne implements LightGrid
 {
@@ -17,10 +18,7 @@ public class LightGridPartOne implements LightGrid
 	{
 		mLights = new boolean[1000][1000];
 
-		for (int i = 0; i < 1000; ++i)
-		{
-			Arrays.fill(mLights[i], false);
-		}
+		IntStream.range(0, 1000).forEach(i -> Arrays.fill(mLights[i], false));
 	}
 
 	@Override
@@ -43,30 +41,24 @@ public class LightGridPartOne implements LightGrid
 
 	public void process(Area area, LightProcessor processor)
 	{
-		for (int x = area.getFromX(); x <= area.getToX(); ++x)
+		IntStream.rangeClosed(area.getFromX(), area.getToX()).forEach(x ->
 		{
-			for (int y = area.getFromY(); y <= area.getToY(); ++y)
+			IntStream.rangeClosed(area.getFromY(), area.getToY()).forEach(y ->
 			{
 				mLights[x][y] = processor.process(mLights[x][y]);
-			}
-		}
+			});
+		});
 	}
 
-	public int getLightsOnCount()
+	public long getLightsOnCount()
 	{
-		int count = 0;
-
-		for (int x = 0; x < mLights.length; ++x)
-		{
-			for (int y = 0; y < mLights[x].length; ++y)
-			{
-				if (mLights[x][y])
-				{
-					count++;
-				}
-			}
-		}
-
-		return count;
+		// Stream all X values
+		return IntStream.range(0, mLights.length)
+			.mapToLong(
+				// Stream all Y values and count all the lights that are on
+				x -> IntStream.range(0, mLights[x].length)
+					.filter( y -> mLights[x][y]) // filter lights on
+					.count() // count items that came through the filter
+			).sum();
 	}
 }

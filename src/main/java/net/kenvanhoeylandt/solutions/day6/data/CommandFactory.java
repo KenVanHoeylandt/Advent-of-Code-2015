@@ -1,6 +1,5 @@
 package net.kenvanhoeylandt.solutions.day6.data;
 
-import net.kenvanhoeylandt.exceptions.InputParsingException;
 import net.kenvanhoeylandt.validators.ArrayValidator;
 
 public class CommandFactory
@@ -9,7 +8,7 @@ public class CommandFactory
 	final static String sCommandTurnOnPrefix = "turn on ";
 	final static String sCommandTogglePrefix = "toggle ";
 
-	public static Command parse(String input) throws InputParsingException
+	public static Command create(String input)
 	{
 		Command.Action action = getCommandAction(input);
 
@@ -20,19 +19,7 @@ public class CommandFactory
 		return new Command(action, area);
 	}
 
-	public static Command[] parse(String[] inputs) throws InputParsingException
-	{
-		Command[] commands = new Command[inputs.length];
-
-		for (int i = 0; i < inputs.length; ++i)
-		{
-			commands[i] = parse(inputs[i]);
-		}
-
-		return commands;
-	}
-
-	private static Command.Action getCommandAction(String input) throws InputParsingException
+	private static Command.Action getCommandAction(String input)
 	{
 		if (input.startsWith(sCommandTogglePrefix))
 		{
@@ -48,11 +35,11 @@ public class CommandFactory
 		}
 		else
 		{
-			throw new InputParsingException("unknown prefix for \"" + input + "\"");
+			throw new RuntimeException("unknown prefix for \"" + input + "\"");
 		}
 	}
 
-	private static Area getArea(String input) throws InputParsingException
+	private static Area getArea(String input)
 	{
 		String[] parts = input.split(" through ");
 

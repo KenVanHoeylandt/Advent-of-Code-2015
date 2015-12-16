@@ -7,11 +7,11 @@ import net.kenvanhoeylandt.exceptions.InputParsingException;
  */
 public class ArrayValidator
 {
-	public static <T> void assertSize(T[] array, int size) throws InputParsingException
+	public static <T> void assertSize(T[] array, int size)
 	{
 		if (array.length != size)
 		{
-			throw new InputParsingException("expected array of exactly " + Integer.toString(size) + " parts");
+			throw new RuntimeException("expected array of exactly " + Integer.toString(size) + " parts");
 		}
 	}
 }

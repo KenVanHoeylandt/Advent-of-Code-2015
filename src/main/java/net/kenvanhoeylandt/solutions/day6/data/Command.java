@@ -1,7 +1,5 @@
 package net.kenvanhoeylandt.solutions.day6.data;
 
-import net.kenvanhoeylandt.exceptions.InputParsingException;
-
 public class Command
 {
 	public enum Action
@@ -15,7 +13,7 @@ public class Command
 
 	private Area mArea;
 
-	public Command(Action action, Area area) throws InputParsingException
+	public Command(Action action, Area area)
 	{
 		mAction = action;
 		mArea = area;

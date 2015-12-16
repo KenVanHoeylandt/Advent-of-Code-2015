@@ -3,6 +3,7 @@ package net.kenvanhoeylandt.solutions.day6.logic;
 import net.kenvanhoeylandt.solutions.day6.data.Area;
 
 import java.util.Arrays;
+import java.util.stream.IntStream;
 
 public class LightGridPartTwo implements LightGrid
 {
@@ -17,10 +18,7 @@ public class LightGridPartTwo implements LightGrid
 	{
 		mLights = new int[1000][1000];
 
-		for (int i = 0; i < 1000; ++i)
-		{
-			Arrays.fill(mLights[i], 0);
-		}
+		IntStream.range(0, 1000).forEach(i -> Arrays.fill(mLights[i], 0));
 	}
 
 	@Override
@@ -52,18 +50,15 @@ public class LightGridPartTwo implements LightGrid
 		}
 	}
 
-	public int getTotalBrightness()
+	public long getTotalBrightness()
 	{
-		int brightness = 0;
-
-		for (int x = 0; x < mLights.length; ++x)
-		{
-			for (int y = 0; y < mLights[x].length; ++y)
-			{
-				brightness += mLights[x][y];
-			}
-		}
-
-		return brightness;
+		// Stream all X values
+		return IntStream.range(0, mLights.length)
+			.mapToLong(
+				// Stream all Y values and count the brightness of each light
+				x -> IntStream.range(0, mLights[x].length)
+					.map( y -> mLights[x][y]) // return brightness of light
+					.sum() // count birghtness of lights
+			).sum();
 	}
 }
