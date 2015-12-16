@@ -76,9 +76,9 @@ public class Day14Solution extends Solution
 		int lead_result = results.get(0).getDistanceTravelled();
 
 		// Go through each result and award points
-		results.parallelStream().forEach(result ->
-		{
-			if (result.getDistanceTravelled() == lead_result)
+		results.parallelStream()
+			.filter(result -> result.getDistanceTravelled() == lead_result)
+			.forEach(result ->
 			{
 				// This runs in a parallel stream, so we have to synchronize
 				synchronized (scoreMap)
@@ -87,7 +87,6 @@ public class Day14Solution extends Solution
 					int score = scoreMap.get(reindeer);
 					scoreMap.put(reindeer, score + 1);
 				}
-			}
-		});
+			});
 	}
 }
