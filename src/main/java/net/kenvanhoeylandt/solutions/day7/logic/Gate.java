@@ -19,10 +19,5 @@ public abstract class Gate
 		return mOutputName;
 	}
 
-	protected GateManager getGateManager()
-	{
-		return mGateManager;
-	}
-
 	abstract public int getValue();
 }

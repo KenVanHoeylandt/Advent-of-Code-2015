@@ -1,6 +1,5 @@
 package net.kenvanhoeylandt.solutions.day7.logic;
 
-import net.kenvanhoeylandt.exceptions.InputParsingException;
 import net.kenvanhoeylandt.solutions.day7.logic.gates.*;
 import net.kenvanhoeylandt.validators.ArrayValidator;
 
@@ -12,19 +11,7 @@ public class GateFactory
 	private static final String sLeftShiftPart = " LSHIFT ";
 	private static final String sRightShiftPart = " RSHIFT ";
 
-	public Gate[] create(GateManager manager, String[] inputs) throws InputParsingException
-	{
-		Gate[] gates = new Gate[inputs.length];
-
-		for (int i = 0; i < inputs.length; ++i)
-		{
-			gates[i] = create(manager, inputs[i]);
-		}
-
-		return gates;
-	}
-
-	public Gate create(GateManager manager, String input) throws InputParsingException
+	public Gate create(GateManager manager, String input)
 	{
 		String[] parts = input.split(" -> ");
 
@@ -66,7 +53,7 @@ public class GateFactory
 		return new NotGate(manager, outputName, input_name);
 	}
 
-	private Gate createOrGate(GateManager manager, String inputPart, String outputName) throws InputParsingException
+	private Gate createOrGate(GateManager manager, String inputPart, String outputName)
 	{
 		String[] input_parts = inputPart.split(sOrPart);
 
@@ -75,7 +62,7 @@ public class GateFactory
 		return new OrGate(manager, outputName, input_parts[0], input_parts[1]);
 	}
 
-	private Gate createAndGate(GateManager manager, String inputPart, String outputName) throws InputParsingException
+	private Gate createAndGate(GateManager manager, String inputPart, String outputName)
 	{
 		String[] input_parts = inputPart.split(sAndPart);
 
@@ -84,7 +71,7 @@ public class GateFactory
 		return new AndGate(manager, outputName, input_parts[0], input_parts[1]);
 	}
 
-	private Gate createLeftShiftGate(GateManager manager, String inputPart, String outputName) throws InputParsingException
+	private Gate createLeftShiftGate(GateManager manager, String inputPart, String outputName)
 	{
 		String[] input_parts = inputPart.split(sLeftShiftPart);
 
@@ -95,7 +82,7 @@ public class GateFactory
 		return new LeftShiftGate(manager, outputName, input_parts[0], shift);
 	}
 
-	private Gate createRightShiftGate(GateManager manager, String inputPart, String outputName) throws InputParsingException
+	private Gate createRightShiftGate(GateManager manager, String inputPart, String outputName)
 	{
 		String[] input_parts = inputPart.split(sRightShiftPart);
 
