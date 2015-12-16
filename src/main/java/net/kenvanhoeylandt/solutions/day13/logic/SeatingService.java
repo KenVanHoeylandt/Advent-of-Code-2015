@@ -7,17 +7,13 @@ import org.apache.commons.collections4.iterators.PermutationIterator;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.IntStream;
 
 /**
  * Calculates optimal seatings for people.
  */
 public class SeatingService
 {
-	private interface SeatingIterator
-	{
-		void iterate(List<Person> seating);
-	}
-
 	private interface SeatingPersonIterator
 	{
 		void iterate(Person current, Person left, Person right);
@@ -34,7 +30,7 @@ public class SeatingService
 		Property<List<Person>> seating_property = new Property<>();
 		IntegerProperty happiness_property = new IntegerProperty(Integer.MIN_VALUE);
 
-		iteratePossibleSeatings(people, seating ->
+		new PermutationIterator<>(people).forEachRemaining(seating ->
 		{
 			int happiness = getHappiness(seating);
 
@@ -73,7 +69,7 @@ public class SeatingService
 	 */
 	private void iterateSeating(List<Person> seating, SeatingPersonIterator iterator)
 	{
-		for (int i = 0; i < seating.size(); ++i)
+		IntStream.range(0, seating.size()).forEach(i ->
 		{
 			Person current = seating.get(i);
 
@@ -84,22 +80,7 @@ public class SeatingService
 			Person right_person = seating.get(right_index);
 
 			iterator.iterate(current, left_person, right_person);
-		}
-	}
-
-	/**
-	 * Iterate through all possible seatings
-	 * @param people the Collection of People
-	 * @param seatingIterator the iteration interface
-	 */
-	private void iteratePossibleSeatings(Collection<Person> people, SeatingIterator seatingIterator)
-	{
-		PermutationIterator<Person> iterator = new PermutationIterator<>(people);
-
-		while (iterator.hasNext())
-		{
-			seatingIterator.iterate(iterator.next());
-		}
+		});
 	}
 
 	/**
