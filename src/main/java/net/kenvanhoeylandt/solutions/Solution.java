@@ -1,6 +1,8 @@
 package net.kenvanhoeylandt.solutions;
 
 import net.kenvanhoeylandt.exceptions.InputParsingException;
+import net.kenvanhoeylandt.performance.Profiler;
+import net.kenvanhoeylandt.performance.SimpleProfiler;
 import net.kenvanhoeylandt.services.ChallengeDataService;
 
 public abstract class Solution implements Runnable
@@ -17,21 +19,28 @@ public abstract class Solution implements Runnable
 	{
 		// Request data -> Solve with data -> Output result/error
 
-		System.out.print("Retrieving assignment data...");
+		System.out.println("Retrieving assignment data...");
+
+		Profiler profiler = new SimpleProfiler();
 
 		ChallengeDataService.shared().request(mDay)
 			.onSuccess(task ->
 			{
-				System.out.println("done");
-				System.out.print("Solving assignment...");
+				System.out.println("Solving assignment...");
 
-				return solve(task.getResult());
+				profiler.start("Solution");
+
+				Object result = solve(task.getResult());
+
+				profiler.stop();
+
+				return result;
 			})
 			.continueWith(task ->
 			{
 				if (task.isFaulted())
 				{
-					System.out.println("error");
+					System.out.println("error when solving assignment");
 
 					Exception exception = task.getError();
 					String message = exception.getMessage();
@@ -53,7 +62,6 @@ public abstract class Solution implements Runnable
 				}
 				else
 				{
-					System.out.println("done");
 					System.out.println(String.format("Solution for day %d: %s", mDay, task.getResult()));
 				}
 
