@@ -1,12 +1,10 @@
 package net.kenvanhoeylandt.solutions.day9;
 
-import net.kenvanhoeylandt.exceptions.InputParsingException;
-import net.kenvanhoeylandt.solutions.day9.Connection;
 import net.kenvanhoeylandt.validators.ArrayValidator;
 
 public class ConnectionFactory
 {
-	public static Connection create(String input) throws InputParsingException
+	public static Connection create(String input)
 	{
 		String[] logic_parts = input.split(" = ");
 
@@ -22,17 +20,5 @@ public class ConnectionFactory
 		int distance = Integer.parseInt(distance_part);
 
 		return new Connection(stations[0], stations[1], distance);
-	}
-
-	public static Connection[] create(String[] inputs) throws InputParsingException
-	{
-		Connection[] connections = new Connection[inputs.length];
-
-		for (int i = 0; i < inputs.length; ++i)
-		{
-			connections[i] = create(inputs[i]);
-		}
-
-		return connections;
 	}
 }

@@ -3,10 +3,9 @@ package net.kenvanhoeylandt.solutions.day9;
 import net.kenvanhoeylandt.solutions.Solution;
 
 import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Day9Solution extends Solution
 {
@@ -15,23 +14,31 @@ public class Day9Solution extends Solution
 		super(9);
 	}
 
-	public int distance(Connection[] connections, String from, String to)
+	@Override
+	protected Object solve(String input) throws Exception
 	{
-		for (Connection connection : connections)
-		{
-			boolean matches = ( connection.getFrom().equals(from) && connection.getTo().equals(to) )
-				|| ( connection.getFrom().equals(to) && connection.getTo().equals(from) );
+		// Process input into models
+		List<Connection> connections = Arrays.asList(input.split("\n"))
+			.stream()
+			.map(ConnectionFactory::create)
+			.collect(Collectors.toList());
 
-			if (matches)
-			{
-				return connection.getDistance();
-			}
-		}
+		// Gather all "to" and "from" locations
+		Stream<String> from_stream = connections.stream().map(Connection::getFrom);
+		Stream<String> to_stream = connections.stream().map(Connection::getTo);
 
-		throw new RuntimeException("match not found between " + from + " and " + to);
+		// Gather all unique location names
+		List<String> locations = Stream.concat(from_stream, to_stream)
+			.distinct()
+			.collect(Collectors.toList());
+
+		int smallest = permutatePartOne(null, locations, new HashSet<>(), connections);
+		int largest = permutatePartTwo(null, locations, new HashSet<>(), connections);
+
+		return String.format("smallest: %d, largest: %d", smallest, largest);
 	}
 
-	private int permutatePartOne(@Nullable String fromLocation, List<String> locationsToVisit, Set<String> locationsVisited, Connection[] connections)
+	private int permutatePartOne(@Nullable String fromLocation, List<String> locationsToVisit, Set<String> locationsVisited, List<Connection> connections)
 	{
 		if (locationsToVisit.isEmpty())
 		{
@@ -77,7 +84,7 @@ public class Day9Solution extends Solution
 		return smallest_distance;
 	}
 
-	private int permutatePartTwo(@Nullable String fromLocation, List<String> locationsToVisit, Set<String> locationsVisited, Connection[] connections)
+	private int permutatePartTwo(@Nullable String fromLocation, List<String> locationsToVisit, Set<String> locationsVisited, List<Connection> connections)
 	{
 		if (locationsToVisit.isEmpty())
 		{
@@ -123,32 +130,15 @@ public class Day9Solution extends Solution
 		return smallest_distance;
 	}
 
-	@Override
-	protected Object solve(String input) throws Exception
+	public int distance(List<Connection> connections, String from, String to)
 	{
-		String[] inputs = input.split("\n");
-
-		Connection[] connections = ConnectionFactory.create(inputs);
-
-		HashSet<String> cities = new HashSet<>();
-		List<String> locations = new ArrayList<>();
-
-		for (Connection connection : connections)
-		{
-			if (cities.add(connection.getFrom()))
-			{
-				locations.add(connection.getFrom());
-			}
-
-			if (cities.add(connection.getTo()))
-			{
-				locations.add(connection.getTo());
-			}
-		}
-
-		int smallest = permutatePartOne(null, locations, new HashSet<>(), connections);
-		int largest = permutatePartTwo(null, locations, new HashSet<>(), connections);
-
-		return String.format("smallest: %d, largest: %d", smallest, largest);
+		return connections.stream()
+			.filter( connection ->
+				( connection.getFrom().equals(from) && connection.getTo().equals(to) )
+				|| ( connection.getFrom().equals(to) && connection.getTo().equals(from) )
+			)
+			.mapToInt(Connection::getDistance)
+			.findFirst()
+			.getAsInt();
 	}
 }
