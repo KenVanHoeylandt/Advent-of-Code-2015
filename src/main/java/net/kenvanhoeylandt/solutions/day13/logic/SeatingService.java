@@ -6,8 +6,11 @@ import net.kenvanhoeylandt.solutions.day13.data.Person;
 import org.apache.commons.collections4.iterators.PermutationIterator;
 
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 /**
  * Calculates optimal seatings for people.
@@ -25,23 +28,17 @@ public class SeatingService
 	 * @param people a bunch of people
 	 * @return an array representing a circle of people (first and last person in the list are seated next to eachother
 	 */
-	public List<Person> getOptimalSeating(Collection<Person> people)
+	public long getOptimalSeating(Collection<Person> people)
 	{
-		Property<List<Person>> seating_property = new Property<>();
-		IntegerProperty happiness_property = new IntegerProperty(Integer.MIN_VALUE);
+		Iterator<List<Person>> permutation_iterator = new PermutationIterator<>(people);
+		Iterable<List<Person>> permutation_iterable = () -> permutation_iterator;
+		Stream<List<Person>> stream = StreamSupport.stream(permutation_iterable.spliterator(), true);
 
-		new PermutationIterator<>(people).forEachRemaining(seating ->
-		{
-			int happiness = getHappiness(seating);
-
-			if (happiness > happiness_property.get())
-			{
-				happiness_property.set(happiness);
-				seating_property.set(seating);
-			}
-		});
-
-		return seating_property.get();
+		return stream.mapToInt(this::getHappiness)
+			.boxed()
+			.sorted((a, b) -> Integer.compare(b, a))
+			.findFirst()
+			.get();
 	}
 
 	/**

@@ -37,18 +37,13 @@ public class Day13Solution extends Solution
 		});
 
 		// Get the optimal seating for the given set of people
-		List<Person> seating_arrangement = seating_service.getOptimalSeating(person_service.getPeople());
-
-		// Calculate the happiness for the people provided
-		int part_one_happiness = seating_service.getHappiness(seating_arrangement);
+		long part_one_happiness = seating_service.getOptimalSeating(person_service.getPeople());
 
 		// Create "self" Person and add him to the seating arrangement
 		person_service.createPerson("Ken");
 
 		// Get the new seating arrangement
-		seating_arrangement = seating_service.getOptimalSeating(person_service.getPeople());
-
-		int part_two_happiness = seating_service.getHappiness(seating_arrangement);
+		long part_two_happiness = seating_service.getOptimalSeating(person_service.getPeople());
 
 		return String.format("part one: %d, part two: %d", part_one_happiness, part_two_happiness);
 	}
