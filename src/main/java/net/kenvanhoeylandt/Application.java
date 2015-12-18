@@ -11,6 +11,7 @@ import net.kenvanhoeylandt.solutions.day14.Day14Solution;
 import net.kenvanhoeylandt.solutions.day15.Day15Solution;
 import net.kenvanhoeylandt.solutions.day16.Day16Solution;
 import net.kenvanhoeylandt.solutions.day17.Day17Solution;
+import net.kenvanhoeylandt.solutions.day18.Day18Solution;
 import net.kenvanhoeylandt.solutions.day2.Day2Solution;
 import net.kenvanhoeylandt.solutions.day3.Day3Solution;
 import net.kenvanhoeylandt.solutions.day4.Day4Solution;
@@ -40,7 +41,8 @@ public class Application
 		Day14Solution.class,
 		Day15Solution.class,
 		Day16Solution.class,
-		Day17Solution.class
+		Day17Solution.class,
+		Day18Solution.class
 	};
 
 	public static void main(String[] args)
