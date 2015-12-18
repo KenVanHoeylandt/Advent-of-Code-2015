@@ -3,7 +3,6 @@ package net.kenvanhoeylandt.solutions.day15;
 import net.kenvanhoeylandt.concurrent.LongProperty;
 import net.kenvanhoeylandt.concurrent.Property;
 import net.kenvanhoeylandt.solutions.Solution;
-import org.apache.commons.collections4.iterators.PermutationIterator;
 
 import java.util.Arrays;
 import java.util.List;
