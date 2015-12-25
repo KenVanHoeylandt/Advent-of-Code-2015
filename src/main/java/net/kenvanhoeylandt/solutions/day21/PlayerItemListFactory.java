@@ -7,11 +7,11 @@ import org.paukov.combinatorics.ICombinatoricsVector;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlayerSet
+public class PlayerItemListFactory
 {
-	public interface SetCallback
+	public interface PlayerItemListCallback
 	{
-		void onPlayerSet(List<PlayerItem> itemList);
+		void onPlayerItemList(List<PlayerItem> itemList);
 	}
 
 	/**
@@ -22,7 +22,7 @@ public class PlayerSet
 	 * @param rings
 	 * @param callback
 	 */
-	public static void iterate(PlayerItem[] weapons, PlayerItem[] armors, PlayerItem[] rings, SetCallback callback)
+	public static void iterate(PlayerItem[] weapons, PlayerItem[] armors, PlayerItem[] rings, PlayerItemListCallback callback)
 	{
 		ICombinatoricsVector<PlayerItem> rings_vector = Factory.createVector(rings);
 
@@ -54,7 +54,7 @@ public class PlayerSet
 						}
 					});
 
-					callback.onPlayerSet(item_list);
+					callback.onPlayerItemList(item_list);
 				}
 			}
 		}

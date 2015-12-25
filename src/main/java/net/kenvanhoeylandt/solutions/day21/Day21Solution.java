@@ -69,7 +69,7 @@ public class Day21Solution extends Solution
 	{
 		Property<Player> best_figher = new Property<>();
 
-		PlayerSet.iterate(weapons, armors, rings, itemList ->
+		PlayerItemListFactory.iterate(weapons, armors, rings, itemList ->
 		{
 			Player fighter = new Player(100, itemList);
 			Player boss = new Player("Boss", bossHitPoints, Collections.singletonList(bossItem));
@@ -96,7 +96,7 @@ public class Day21Solution extends Solution
 	{
 		Property<Player> worst_fighter = new Property<>();
 
-		PlayerSet.iterate(weapons, armors, rings, itemList ->
+		PlayerItemListFactory.iterate(weapons, armors, rings, itemList ->
 		{
 			Player fighter = new Player(100, itemList);
 			Player boss = new Player("Boss", bossHitPoints, Collections.singletonList(bossItem));
