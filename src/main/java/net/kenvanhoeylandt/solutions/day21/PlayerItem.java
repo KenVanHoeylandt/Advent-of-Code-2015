@@ -1,5 +1,8 @@
 package net.kenvanhoeylandt.solutions.day21;
 
+/**
+ * An item for a player that carries stats.
+ */
 public class PlayerItem
 {
 	private final String mName;
@@ -31,5 +34,11 @@ public class PlayerItem
 	public int getArmor()
 	{
 		return mArmor;
+	}
+
+	@Override
+	public String toString()
+	{
+		return "[" + mName + "]";
 	}
 }

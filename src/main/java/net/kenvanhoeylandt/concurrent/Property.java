@@ -28,4 +28,14 @@ public class Property<Type>
 	{
 		return mObject;
 	}
+
+	public synchronized boolean isNull()
+	{
+		return mObject == null;
+	}
+
+	public synchronized boolean isNotNull()
+	{
+		return mObject != null;
+	}
 }

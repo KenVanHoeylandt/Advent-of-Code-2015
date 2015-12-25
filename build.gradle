@@ -35,6 +35,8 @@ dependencies {
         [group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.6.+'],
         [group: 'org.json', name: 'json', version: '20151123'],
 
+        [group: 'com.googlecode.combinatoricslib', name: 'combinatoricslib', version: '2.1'],
+
         fileTree(dir: 'src/main/libs', include: ['*.jar'])
     )
 }
