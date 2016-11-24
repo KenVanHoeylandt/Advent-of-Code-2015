@@ -31,7 +31,7 @@ public class NumberProcessor
 		return total;
 	}
 
-	private int countIntegerValues(JSONArray jsonArray)
+	public int countIntegerValues(JSONArray jsonArray)
 	{
 		int total = 0;
 
