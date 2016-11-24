@@ -104,7 +104,7 @@ public class ChallengeDataService
 		RequestService request_service = RequestService.shared();
 
 		Request request = request_service.requestBuilder()
-			.url(String.format("http://adventofcode.com/day/%d/input", day))
+			.url(String.format("http://adventofcode.com/2015/day/%d/input", day))
 			.build();
 
 		return request_service.executeForString(request)
