@@ -19,7 +19,11 @@ jar {
         	'Implementation-Version': '1.0',
             'Main-Class': 'net.kenvanhoeylandt.Application'
     }
-    archiveName 'AdventOfCode2016.jar'
+
+    archiveName 'AdventOfCode2015.jar'
+
+    // add all dependencies inside the jar so it can be executed independently from the commandline
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
 }
 
 dependencies {
